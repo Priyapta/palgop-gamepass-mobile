@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/form.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Palgop GamePass',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey.shade300),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey.shade900),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'PalgopGamePass'),
@@ -53,10 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        backgroundColor: Colors.grey[400],
-        title: Text(widget.title),
+        backgroundColor: Colors.grey[900],
+        title: Text(
+          widget.title,
+          style: TextStyle(
+              color: Colors.deepPurple[500], fontWeight: FontWeight.bold),
+        ),
       ),
       body: Center(
         child: Column(
@@ -80,7 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
               padding:
                   const EdgeInsets.symmetric(vertical: 10, horizontal: 150),
               child: ElevatedButton(
+                
                   onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ItemEntryFormPage()));
+
                     _showSnack("Kamu telah menekan tombol Tambah Produk");
                   },
                   child: Row(
