@@ -19,6 +19,12 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
         backgroundColor: Colors.grey[900],
         title: const Center(
           child: Text(
