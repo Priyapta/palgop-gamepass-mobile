@@ -2,6 +2,70 @@
 
 ## Link Deployment -> 
 
+
+## Tugas 8 PBP 2024/2025 🧑‍💻🔗
+
+### 1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+Dalam Flutter, `const` digunakan untuk mendefinisikan objek yang tetap konstan selama aplikasi berjalan. Artinya, objek `const` tidak perlu dibuat ulang setiap kali Flutter melakukan proses build. Manfaat utama penggunaan `const` adalah peningkatan kinerja aplikasi dan pengurangan penggunaan memori, karena objek `const` hanya dibuat sekali dan dipertahankan selama aplikasi berjalan. Penggunaan `const` sangat ideal untuk widget yang bersifat statis, tidak berubah selama aplikasi berjalan, sering digunakan berulang kali, atau untuk nilai-nilai konstanta. Namun, `const` sebaiknya dihindari untuk widget yang bersifat dinamis, yaitu widget yang memiliki properti yang dapat berubah seiring berjalannya aplikasi.
+
+### 2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+`column` digunakan untuk menyusun widget secara vertikal dari atas ke bawah. Sesuai namanya `column` akan mengatur objek sehingga berbentuk sebuah kolom. Sedangkan `Row`, digunakan untuk menyusun widget secara horizontal sehingga objek atau widget berbentuk baris.
+
+Contoh penggunaan `Column`:
+```
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Contoh Column')),
+        body: Column(
+          children: const [
+            Text('Item 1'),
+            Text('Item 2'),
+            Text('Item 3'),
+          ],
+        ),
+      ),
+```
+Kode di atas meletakan Text dibuat secara Column dimana item 1 terletak paling atas dan item 3 terletak paling bawah
+
+Contoh penggunaan `Row`:
+```
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Contoh Row')),
+        body: Row(
+          children: const [
+            Text('Item 1'),
+            Text('Item 2'),
+            Text('Item 3'),
+          ],
+        ),
+      ),
+```
+Kode di atas meletakan item 1 di posisi paling kiri dan item 3 diletakan pada posisi paling kanan.
+
+### 3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+Elemen input yang saya gunakan pada halaman form saya adalah `TextFormField` dimana user akan memberikan sebuah input berbentuk text yang bisa berupa string maupun integer. Lalu elemen input lain yang saya gunakana adalah `ElevatedButton` yang berfungsi mengirimkan sinyal berupa data yang di-input oleh user. Terdapat beberapa elemen input lain dalam flutter yang saya tidak gunakan seperti `Checkbox`, `RadioButton`, `DropDownButton`, `Slider`, dan lain-lain.
+
+### 4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+Agar aplikasi konsisten dengan tema dan pewarnaan, pengaturan tema dilakukan pada file `main.dart` dalam widget `MaterialApp`:
+```
+    MaterialApp(
+      title: 'Palgop GamePass',
+      theme: theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey.shade900),
+        useMaterial3: true,
+      ),
+      home: MyHomePage(),
+    );
+```
+Widget ini dapat digunakan pada seluruh file dalam project flutter dimana warna dari widget-widget yang mengaplikasikan `MyHomePage` ini dapat menggunakan atribut `MyHomepage`. Dalam project ini, pengaplikasian tema dapat dilakukan dengan memanggil:
+```
+  backgroundColor: Theme.of(context).colorScheme.primary,
+```
+
+sehingga warna latar belakang dari sebuah fitur dapat sama dengan yang diinginkan pada tema aplikasi.
+
+### 5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+Navigasi halaman pada aplikasi dapat dilakukan dengan berbagai cara. Beberapa cara navigasi yang saya tangani dalam aplikasi adalah dengan menggunakan beberapa method yakni `Navigator.pushReplacement()` yang memiliki fungsi menghapus route yang sedang ditampilkan dan menggantinya dengan route yang baru sehingga stack dari halaman menjadi hanya satu halaman, yakni halaman yang baru. Selanjutnya saya menggunakan `Navigator.push()` dimana fungsinya adalah menambahkan route baru di atas route lama sehingga jumlah stack menjadi dua. Terakhir, saya menggunakan `Navigator.pop()` yang fungsinya adalah menghapus route yang sedang ditampilkan dan menggantinya ke route sebelumnya di dalam stack.
+
 ### Tugas 7 PBP
 
 
