@@ -35,6 +35,8 @@ class Fields {
   String itemName;
   String itemDescription;
   String itemPrice;
+
+  var itemStock;
   // Add this if it exists in the JSON
 
   Fields({

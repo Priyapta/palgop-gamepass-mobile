@@ -62,8 +62,7 @@ class _productEntryState extends State<productEntry> {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (_, index) => Card(
-                    color: const Color.fromARGB(
-                        255, 29, 29, 29), // Warna latar belakang Card
+                    color: Colors.deepPurple, // Warna latar belakang Card
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(12.0), // Sudut melengkung Card

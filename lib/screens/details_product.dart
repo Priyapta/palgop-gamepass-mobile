@@ -1,8 +1,9 @@
+import 'package:e_commerce/models/product_entry.dart';
 import 'package:e_commerce/screens/list_product.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailPage extends StatelessWidget {
-  final productEntry product;
+  final ProductEntry product;
 
   const ProductDetailPage({super.key, required this.product});
 
@@ -12,7 +13,7 @@ class ProductDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "View Product: ${product.fields.itemName}",
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.deepPurple),
         ),
         backgroundColor: const Color.fromARGB(255, 29, 29, 29),
       ),
@@ -26,36 +27,27 @@ class ProductDetailPage extends StatelessWidget {
               style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color: Colors.deepPurple),
             ),
             const SizedBox(height: 12),
             Text(
               "Price: \$${product.fields.itemPrice}",
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.deepPurple),
             ),
             const SizedBox(height: 8),
             Text(
               "Desc:\n${product.fields.itemDescription}",
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.deepPurple),
               softWrap: true,
             ),
             const SizedBox(height: 8),
-            Text(
-              "Stock: ${product.fields.itemStock}",
-              style: const TextStyle(color: Colors.white),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Category: ${product.fields.itemCategory}",
-              style: const TextStyle(color: Colors.white),
-            ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
                 backgroundColor:
                     const Color.fromARGB(255, 29, 29, 29), // Background color
-                foregroundColor: Colors.white, // Font color
+                foregroundColor: Colors.deepPurple, // Font color
                 padding: const EdgeInsets.symmetric(
                     horizontal: 16.0, vertical: 12.0), // Optional padding
                 shape: RoundedRectangleBorder(
