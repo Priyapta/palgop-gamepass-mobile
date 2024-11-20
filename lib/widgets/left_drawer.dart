@@ -1,5 +1,7 @@
 import 'package:e_commerce/main.dart';
+import 'package:e_commerce/models/product_entry.dart';
 import 'package:e_commerce/screens/form.dart';
+import 'package:e_commerce/screens/list_product.dart';
 import 'package:e_commerce/screens/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,6 @@ class LeftDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      
       child: ListView(
         children: [
           DrawerHeader(
@@ -41,9 +42,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MyHomePage(
-                      title: "PalgopGamePass",
-                    ),
+                    builder: (context) => const MyHomePage(),
                   ));
             },
           ),
@@ -57,6 +56,17 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => ItemEntryFormPage(),
                   ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Daftar Mood'),
+            onTap: () {
+              // Route menu ke halaman mood
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const productEntry()),
+              );
             },
           ),
         ],

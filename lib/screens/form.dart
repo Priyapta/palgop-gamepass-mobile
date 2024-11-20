@@ -1,4 +1,10 @@
+import 'dart:convert';
+
+import 'package:e_commerce/screens/menu.dart';
+import 'package:e_commerce/widgets/left_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 // TODO: Impor drawer yang sudah dibuat sebelumnya
 
 class ItemEntryFormPage extends StatefulWidget {
@@ -10,21 +16,26 @@ class ItemEntryFormPage extends StatefulWidget {
 
 class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _mood = "";
-  String _feelings = "";
-  int _moodIntensity = 0;
+  String _name = "";
+  String _description = "";
+  int _productPrice = 0;
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         backgroundColor: Colors.grey[900],
         title: const Center(
           child: Text(
@@ -33,6 +44,7 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
           ),
         ),
       ),
+      drawer: LeftDrawer(),
       // TODO: Tambahkan drawer yang sudah dibuat di sini
       body: Form(
         key: _formKey,
@@ -53,7 +65,7 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                   style: TextStyle(color: Colors.deepPurple),
                   onChanged: (String? value) {
                     setState(() {
-                      _mood = value!;
+                      _name = value!;
                     });
                   },
                   validator: (String? value) {
@@ -77,7 +89,7 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                   style: TextStyle(color: Colors.deepPurple),
                   onChanged: (String? value) {
                     setState(() {
-                      _feelings = value!;
+                      _description = value!;
                     });
                   },
                   validator: (String? value) {
@@ -101,7 +113,7 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                   style: TextStyle(color: Colors.deepPurple),
                   onChanged: (String? value) {
                     setState(() {
-                      _moodIntensity = int.tryParse(value!) ?? 0;
+                      _productPrice = int.tryParse(value!) ?? 0;
                     });
                   },
                   validator: (String? value) {
@@ -123,34 +135,53 @@ class _ItemEntryFormPageState extends State<ItemEntryFormPage> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.deepPurple)),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Item berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Item: $_mood'),
-                                    // TODO: Munculkan value-value lainnya
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        // Debug print to confirm data being sent
+                        print(
+                            "Sending Data: name: $_name, price: $_productPrice, description: $_description");
+
+                        try {
+                          final response = await request.postJson(
+                            "http://127.0.0.1:8000/create-flutter/",
+                            jsonEncode(<String, dynamic>{
+                              // Adjusted for correct data type
+                              'item_name': _name,
+                              'item_price': _productPrice,
+                              'item_description': _description,
+                            }),
+                          );
+
+                          if (context.mounted) {
+                            if (response['status'] == 'success') {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("Item successfully saved!")),
+                              );
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MyHomePage()),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        "An error occurred. Please try again.")),
+                              );
+                              // Debugging the server's response
+                              print("Error Response: $response");
+                            }
+                          }
+                        } catch (e) {
+                          // If there's an error in sending the request or in the response
+                          print("Request Error: $e");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    "Failed to save. Please try again later.")),
+                          );
+                        }
                       }
                     },
                     child: const Text(
